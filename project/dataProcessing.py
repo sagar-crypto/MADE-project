@@ -55,7 +55,7 @@ def process_crop_irrigation(file_path):
     df = df.dropna(subset=['Ag District'])
     columns_to_drop = ["Program","Period","Week Ending","Geo Level","State ANSI","Ag District","Ag District Code","County","County ANSI","Zip Code","Region","watershed_code","Watershed","Domain","Domain Category","CV (%)"]
     df = df.drop(columns=columns_to_drop)
-    df = df[(df['Year'] >= 2018) & (df['Year'] <= 2022)]
+    df = df[(df['Year'] >= 2000) & (df['Year'] <= 2022)]
     return df
 
 
@@ -97,10 +97,10 @@ def main():
     for file_path in file_paths_crops:
         table_name = os.path.splitext(os.path.basename(file_path))[0]
         df = process_crop_irrigation(file_path)
-        store_in_sql(df,"Data", table_name, data_directory)
+        store_in_sql(df,"Data.sqlite", table_name, data_directory)
 
     df = process_climate_change(file_path_climate )
-    store_in_sql(df, "Data", "climate_change", data_directory)
+    store_in_sql(df, "Data.sqlite", "climate_change", data_directory)
 
 
 if __name__ == '__main__':
