@@ -24,7 +24,7 @@ Climate change presents a significant threat to global food security by potentia
 * Data Type: CSV
 
 This dataset provides statistics about corn production held across the country of USA, which was not
-irrigated in Bushels per acre from 2018- 2022.
+irrigated in Bushels per acre from 2005- 2022.
 
 ### Datasource2:
 * Metadata URL: https://quickstats.nass.usda.gov/results/2950386D-9747-3212-869D-270D09981E49
@@ -32,7 +32,7 @@ irrigated in Bushels per acre from 2018- 2022.
 * Data Type: CSV
 
 This dataset provides statistics about corn production held across the country of USA, which was
-irrigated in Bushels per acre 2018- 2022.
+irrigated in Bushels per acre 2005- 2022.
 
 ### Datasource3:
 * Metadata URL: https://www.kaggle.com/datasets/goyaladi/climate-insights-dataset
