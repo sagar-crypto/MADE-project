@@ -5,7 +5,7 @@ pipeline Goods{
 
     }
     block GoodsTextFileReader oftype TextFileInterpreter{
-        encoding: "utf8";
+        encoding: "latin4";
     }
 
     block GoodsMetaDataDeleter oftype TextRangeSelector{
@@ -35,13 +35,13 @@ pipeline Goods{
     block GoodsTableInterpreter oftype TableInterpreter{
         header : true;
         columns : [
-            'year' oftype integer,
-            'month' oftype text,
+            'year' oftype PositiveInteger,
+            'month' oftype ValidMonth,
             'goods_id' oftype hasNST,
             'goods_name' oftype text,
             'goods_source' oftype text,
-            'abroad' oftype text,
-            'total' oftype text
+            'abroad' oftype PositiveInteger,
+            'total' oftype PositiveInteger
         ];
     }
 
@@ -52,7 +52,26 @@ pipeline Goods{
     }
 
     constraint containsNST on text :
-        value matches /^NST7-[A-Za-z\u00C0-\u017F]+$/;
+        value matches /^NST7-[A-Z0-9]{3}$/;
+    
+    valuetype PositiveInteger oftype integer {
+		constraints: [ 
+            Positive 
+            ];
+	}
+	constraint Positive oftype RangeConstraint {
+		lowerBound: 0;
+	}
+
+	valuetype ValidMonth oftype text {
+		constraints: [ 
+            AllowedMonths 
+            ];
+	}
+
+	constraint AllowedMonths oftype AllowlistConstraint {
+		allowlist: ["Januar", "Februar", "März", "April", "Mai", "Juni", "July", "August", "September", "Oktober", "November", "Dezember"];
+	}
 
     block GoodsSqlLoader oftype SQLiteLoader{
         table : "goods";
