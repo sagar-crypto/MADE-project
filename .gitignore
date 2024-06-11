@@ -3,3 +3,5 @@
 !/data/.gitkeep
 /.kaggle/*
 /plots/*
+.env
+/test_data/*
