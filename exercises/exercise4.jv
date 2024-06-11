@@ -1,0 +1,90 @@
+pipeline Tempratures{
+
+    block TemppratureExtractor oftype HttpExtractor {
+        url: "https://www.mowesta.com/data/measure/mowesta-dataset-20221107.zip";
+
+    }
+
+    block TempratureArchiveInterpreter oftype ArchiveInterpreter {
+        archiveType: "zip";
+    }
+
+    block TempratureFilePicker oftype FilePicker{
+        path: "/data.csv";
+    }
+    block TempratureTextFileReader oftype TextFileInterpreter{}
+
+    block TempratureCsvInterpreter oftype CSVInterpreter{
+        delimiter : ";";
+    }
+
+    block HeaderWriterColA_E oftype CellWriter {
+        at: range A1:E1;
+        write: [ 'id', 'producer', 'model', 'month', 'temperature'];
+    }
+
+    block HeaderWriterColAT oftype CellWriter{
+        at : cell J1;
+        write: [ 'battery_temperature'];
+    }
+
+    block TempratureTableInterpreter oftype TableInterpreter{
+        header : true;
+        columns : [
+            'id' oftype PositiveInteger,
+            'producer' oftype text,
+            'model' oftype text,
+            'month' oftype integer,
+            'temperature' oftype decimal,
+            'battery_temperature' oftype decimal
+        ];
+    }
+
+    
+    valuetype PositiveInteger oftype integer {
+		constraints: [ 
+            Positive 
+            ];
+	}
+	constraint Positive oftype RangeConstraint {
+		lowerBound: 0;
+        lowerBoundInclusive: true;
+	}
+
+    block TempratureConverter oftype TableTransformer{
+        inputColumns: ['temperature'];
+        outputColumn: 'temperature';
+        use: celciusToFarenheit;
+    }
+
+    block BatteryTempratureConverter oftype TableTransformer{
+        inputColumns: ['battery_temperature'];
+        outputColumn: 'battery_temperature';
+        use: celciusToFarenheit;
+    }
+
+    transform celciusToFarenheit{
+        from Celsius oftype decimal;
+        to Fahrenheit oftype decimal;
+        Fahrenheit: (Celsius * 9/5) + 32;
+    }
+
+
+    block TempratureSqlLoader oftype SQLiteLoader{
+        table : "tempratures";
+        file : "./temperatures.sqlite";
+    }
+
+
+    TemppratureExtractor->TempratureArchiveInterpreter
+        ->TempratureFilePicker
+        ->TempratureTextFileReader
+        ->TempratureCsvInterpreter
+        ->HeaderWriterColA_E
+        ->HeaderWriterColAT
+        ->TempratureTableInterpreter
+        ->TempratureConverter
+        ->BatteryTempratureConverter
+        ->TempratureSqlLoader;
+
+}
