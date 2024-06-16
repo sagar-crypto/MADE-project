@@ -45,7 +45,7 @@ pipeline Stops{
         upperBoundInclusive : true;
 	}
 
-    valuetype ZoneIdConstraint oftype text{
+    valuetype ZoneIdConstraint oftype integer{
         constraints:[
             SpecificId
         ];
