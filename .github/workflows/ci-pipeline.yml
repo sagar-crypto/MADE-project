@@ -30,6 +30,9 @@ jobs:
           chmod +x tests.sh
 
       - name: Run tests
+        env:
+            KAGGLE_USERNAME: ${{ secrets.KAGGLE_USERNAME }}
+            KAGGLE_KEY: ${{ secrets.KAGGLE_KEY }}
         run: |
           cd project
           ./tests.sh
