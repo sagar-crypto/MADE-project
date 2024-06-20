@@ -1,0 +1,35 @@
+name: CI for push to main
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  Tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+      
+      - name: Install dependencies
+        run: |
+         python -m pip install --upgrade pip
+         cd project
+         chmod +x install-dependencies.sh
+         ./install-dependencies.sh
+
+      - name: Set execute permissions for tests.sh
+        run: |
+          cd project
+          chmod +x tests.sh
+
+      - name: Run tests
+        run: |
+          cd project
+          ./tests.sh
