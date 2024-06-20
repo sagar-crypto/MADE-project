@@ -16,8 +16,10 @@ with open('packages.json') as f:
 
     packages = []
     for package, version in dependencies.items():
-        packages.append(f"{package}=={version}")
-
+        if package == "SQLAlchemy":
+            packages.append(f"{package}=={version}")
+        else:
+            packages.append(f"{package}")
     print(" ".join(packages))
 END
 )
