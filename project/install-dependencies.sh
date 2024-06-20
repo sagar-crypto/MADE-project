@@ -24,4 +24,4 @@ with open('packages.json') as f:
 END
 )
 
-pip3 install --upgrade $required_packages
+pip install --upgrade $required_packages
