@@ -1,6 +1,7 @@
 import os
 import numpy as np
 import pandas as pd
+from dotenv import load_dotenv
 from sqlalchemy import create_engine
 from kaggle.api.kaggle_api_extended import KaggleApi
 import requests
@@ -9,6 +10,15 @@ import zipfile
 
 
 def connect_to_kaggle():
+    load_dotenv()
+    
+    kaggle_username = os.getenv('KAGGLE_USERNAME')
+    kaggle_key = os.getenv('KAGGLE_KEY')
+    if kaggle_username is None or kaggle_key is None:
+        raise ValueError("KAGGLE_USERNAME and KAGGLE_KEY must be set")
+
+    os.environ['KAGGLE_USERNAME'] = kaggle_username
+    os.environ['KAGGLE_KEY'] = kaggle_key
     kaggle_api = KaggleApi()
     kaggle_api.authenticate()
 
