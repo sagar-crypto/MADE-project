@@ -5,7 +5,6 @@ from dotenv import load_dotenv
 from sqlalchemy import create_engine
 from kaggle.api.kaggle_api_extended import KaggleApi
 import requests
-import sqlite3
 import zipfile
 
 
