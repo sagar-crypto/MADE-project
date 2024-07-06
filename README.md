@@ -13,5 +13,5 @@ The aim of this project is to investigate if there is a relationship between the
 In the `project` folder you can find the [datapipeline](https://github.com/sagar-crypto/MADE-project/blob/main/project/dataProcessing.py) which is used to load the data from the internet, proccesses it and stores it to a database. <br>
 In the `project` folder you find all additional informations about the project, like what datasources where used. The final report about the findings from the processed data you can see in the [analysis-report.pdf](https://github.com/sagar-crypto/MADE-project/blob/main/project/analysis-report.pdf).
 ## Context
-This repository is the result of my participation in the course [Advanced Methods of Software Engineering](https://oss.cs.fau.de/teaching/specific/amse/) provided by the [Professorship of Open-Source Software](https://oss.cs.fau.de) from FAU. <br>
+This repository is the result of my participation in the course [Methods of Advance Data engineering](https://oss.cs.fau.de/teaching/specific/made/) provided by the [Professorship of Open-Source Software](https://oss.cs.fau.de) from FAU. <br>
 The task was to build a Data Engineering Project, which takes at least two public available datasources and processes them with an automated datapipeline, in order to report some findings from the result.
